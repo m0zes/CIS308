@@ -78,7 +78,7 @@ int countDigits(char* digits, int s) {
 	int i;
 	for(i=0;i<s;i++) {
 		if (digits[i] == '\0')
-			return i;
+			return i-1;
 	}
 	return LengthOfArray;
 }
