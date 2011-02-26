@@ -1,20 +1,46 @@
+/*************************************************
+ * Name: Adam Tygart                             *
+ * Date: Feb 27, 2011                            *
+ * Assignment: Project 3: Matrix Multiplication  *
+ *************************************************
+ * multiplies the matrices specified in the file * 
+ * on the cli                                    *
+ *************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+
+/*
+ * Creates a Matrix struct that holds information about a 2d matrix
+ */
 struct Matrix {
 	int rows;
 	int columns;
 	int **data;
 };
 
+/*
+ * adds a new data type called matrix. it is a struct Matrix
+ */
 typedef struct Matrix matrix;
 
+/*
+ * macro doing simple multiplication
+ */
 #define multiply(a, b) a*b;
 
 int matrixMultiply(matrix *m1, matrix *m2, matrix *out);
 void printMatrix(matrix *m);
 
+
+/*
+ * main. reads in the file specified on the command line, creates matrices from it
+ * multiplies the matrices and prints the output matrix
+ * return value is for posix compliance. 0 is success, everything else is failure
+ * argc is the number of cli arguments in the argv
+ * argv is a array of strings holding the cli arguments
+ */
 int main(int argc, char **argv) {
 	if(argc <= 1) {
 		fprintf(stderr, "Please specify a filename on the command line.");
@@ -110,6 +136,10 @@ int main(int argc, char **argv) {
 	return errCode;
 }
 
+/*
+ * prints the rows and columns of a matrix
+ * matrix m is the matrix to print
+ */
 void printMatrix(matrix *m) {
 	int i, j;
 	for (i = 0; i < m->rows; i++) {
@@ -120,6 +150,12 @@ void printMatrix(matrix *m) {
 	printf("\n");
 }
 
+/*
+ * multiplies a matrix. optimized for speed as ikj is a bit faster than ijk
+ * returns an int indicating whether the multiply happened.
+ * m1 is the primary matrix. m2 is the secondary matrix
+ * out is the output matrix.
+ */
 int matrixMultiply(matrix *m1, matrix *m2, matrix *out) {
 	if (m1->columns == m2->rows) {
 		int i, j, k;
