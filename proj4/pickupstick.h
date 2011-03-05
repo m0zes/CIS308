@@ -1,15 +1,36 @@
 #ifndef PICKUPSTICK_H
 #define PICKUPSTICK_H
 
-struct PickupStick {
-	int stick;
-	struct PickupStick *next;
+enum BOOLEAN  
+{
+	false,
+	true 
 };
 
-struct PickupStick *root;
+typedef enum BOOLEAN bool;
 
-int Add(struct PickupStick *node);
+struct PICKUPSTICK {
+	int *uniq;
+	int uniqlen;
 
-int Check();
+	int **pile;
+	int current;
+	int pilelen;
+	int mlength;
+};
+
+typedef struct PICKUPSTICK pstick;
+
+pstick *data;
+
+bool Add(int*);
+
+bool Check();
+
+void Multiply(int**, int**, int**, int);
+
+void Swap(int***, int***);
+
+void AddUniq(int);
 
 #endif
