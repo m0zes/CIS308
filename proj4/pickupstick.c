@@ -1,73 +1,69 @@
 #include "pickupstick.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 extern pstick *data;
 
 bool Add(int *tuple) {
 	if (tuple[0] > data->pilelen) {
+		//printf("tuple[0] (%d) is less than data->pilelen (%d)\n", tuple[0], data->pilelen);
 		return false;
 	}
-	data->pile[data->current++] = tuple;
+	data->pile[0][data->current] = tuple[0];
+	data->pile[1][data->current] = tuple[1];
+	data->current++;
+
+	//printf("data->pile[%d] added %d %d\n", data->current-1, tuple[0], tuple[1]);
 	AddUniq(tuple[0]);
 	return true;
 }
 
 void AddUniq(int j) {
-	int k;
-	for (k = 1; k < j; ++k) {
-		int key = data->uniq[k];
-		int i = k - 1;
-		while ((i >= 0) && (key < data->uniq[i])) {
-			data->uniq[i + 1] = data->uniq[i];
-			--i;
-		}
-		if (data->uniq[i] == j)
-			return;
-		data->uniq[i + 1] = key;
+	if (data->uniqlen == 0) {
+		data->uniq[0] = j;
 		data->uniqlen++;
+		return;
+	}
+	int i;
+	for (i = 0; i < data->uniqlen; i++) {
+		if (data->uniq[i] == j)
+			break;
+		else if (data->uniq[i] > j) {
+			int k = data->uniqlen + 1;
+			while (k > i) {
+				data->uniq[k-1] = data->uniq[k];
+				k--;
+			}
+			data->uniq[i] = j;
+			data->uniqlen = data->uniqlen+1;
+			break;
+		}
 	}
 }
 
+/*
+ * Check function. The logic here is that 
+ */
 bool Check() {
 	int i;
 	bool retval = true;
-	int **mat2 = malloc(data->pilelen * sizeof(int*));
-	int **out  = malloc(data->pilelen * sizeof(int*));
 	for (i = 0; i < data->pilelen; i++) {
-		memcpy(data->pile[i],mat2[i], 2* sizeof(int));
-		out[i] = malloc(2 * sizeof(int));
-	}
-	for (i = 0; i < data->uniqlen; i++) {
-		Multiply(data->pile, mat2, out, data->pilelen);
-		Swap(&mat2, &out);
-	}
-	for (i = 0; i < data->pilelen; i++) {
-		if (mat2[i][0] == mat2[i][1])
-			retval = false;
-		free(mat2[i]);
-		free(out[i]);
-	}
-	free(mat2);
-	free(out);
-	return retval;
-}
-
-void Multiply(int **mat1, int **mat2, int **out, int length) {
-	int i,j;
-	for (i = 0; i < length; i++) {
-		for (j = 0; j < length; j++) {
-			if (mat1[i][1] == mat2[i][0]) {
-				out[i][0] = mat1[i][0];
-				out[i][1] = mat2[i][1];
+		if (data->pile[0][i] - 1 <= 0) {
+			printf("out: %d %d\n", data->uniqlen, data->pile[1][i]);
+			if (data->uniqlen == data->pile[1][i]) {
+				printf("data->pile[0][i] - 1 <= 0\n");
+				retval = false;
+				break;
+			}
+		} else {
+			printf("out: %d %d\n", data->pile[0][i], data->pile[1][i]);
+			if (data->pile[0][i] - 1 == data->pile[1][i]) {
+				printf("data->pile[0][i] - 1 == data->pile[1][i]\n");
+				retval = false;
+				break;
 			}
 		}
 	}
-}
-
-void Swap(int ***m1, int ***m2) {
-	int **temp;
-	temp = *m1;
-	*m1 = *m2;
-	*m2 = temp;
+	return retval;
 }

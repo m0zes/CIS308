@@ -27,10 +27,6 @@ bool Add(int*);
 
 bool Check();
 
-void Multiply(int**, int**, int**, int);
-
-void Swap(int***, int***);
-
 void AddUniq(int);
 
 #endif
