@@ -27,11 +27,13 @@ int main() {
 		}
 		data->pilelen = currdata[1];
 		int i;
+		//printf("%d\n", currdata[1]);
 		for (i = 0; i < currdata[1]; i++) {
-			//printf("%d\n", currdata[1]);
 			int currline[2];
 			readLine(stdin, currline);
+			//printf("read %d %d\n", currline[0], currline[1]);
 			Add(currline);
+			//printf("Wrote %d %d\n", data->pile[0][data->current-1], data->pile[1][data->current-1]);
 		}
 		if (Check())
 			print("VALID");

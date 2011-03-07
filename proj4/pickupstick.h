@@ -28,5 +28,7 @@ bool Add(int*);
 bool Check();
 
 void AddUniq(int);
+void Multiply(int **out, int length);
+void Swap(int ***m1, int ***m2);
 
 #endif
