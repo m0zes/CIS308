@@ -30,6 +30,7 @@ void AddUniq(int j) {
 bool Check() {
 	int i, j, k;
 	bool retval = true;
+	int uniqc = data->uniqlen;
 	for (i = 0; i < data->uniqlen; i++) {
 		for (k = 0; k < data->uniqlen; k++) {
 			if (data->uniq[i] == false) {
@@ -42,17 +43,16 @@ bool Check() {
 					if (data->pile[1][j] == i)
 						break;
 				}
-				if (j == data->current)
+				if (j == data->current) {
 					data->uniq[i] = false;
+					uniqc--;
+				}
 			}
 		}
 	}
 
-	for (i = 0; i < data->uniqlen; i++) { 
-		if (data->uniq[i] == true) {
-			retval = false;
-			break;
-		}
+	if (uniqc != 0) {
+		retval = false;
 	}
 	return retval;
 }
