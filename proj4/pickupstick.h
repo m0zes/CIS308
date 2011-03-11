@@ -10,7 +10,7 @@ enum BOOLEAN
 typedef enum BOOLEAN bool;
 
 struct PICKUPSTICK {
-	int *uniq;
+	bool *uniq;
 	int uniqlen;
 
 	int **pile;
