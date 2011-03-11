@@ -31,9 +31,7 @@ int main() {
 		for (i = 0; i < currdata[1]; i++) {
 			int currline[2];
 			readLine(stdin, currline);
-			//printf("read %d %d\n", currline[0], currline[1]);
 			Add(currline);
-			//printf("Wrote %d %d\n", data->pile[0][data->current-1], data->pile[1][data->current-1]);
 		}
 		if (Check())
 			print("VALID");
