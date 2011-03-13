@@ -10,25 +10,21 @@ enum BOOLEAN
 typedef enum BOOLEAN bool;
 
 struct PICKUPSTICK {
-	bool *uniq;
-	int uniqlen;
-
+	int *visited;
 	int **pile;
 	int current;
-	int pilelen;
-	int mlength;
 };
 
 typedef struct PICKUPSTICK pstick;
 
 pstick *data;
 
-bool Add(int*);
+bool Add(int, int);
 
 bool Check();
 
-void AddUniq(int);
-void Multiply(int **out, int length);
-void Swap(int ***m1, int ***m2);
+bool DFS();
+
+void RDFS(int vertex);
 
 #endif

@@ -5,54 +5,61 @@
 
 extern pstick *data;
 
-bool Add(int *tuple) {
-	if (tuple[0] > data->pilelen) {
+bool Add(int vertex, int edge) {
+	if (vertex > data->current) {
 		return false;
 	}
-	data->pile[0][data->current] = tuple[0]-1;
-	data->pile[1][data->current] = tuple[1]-1;
-	data->current++;
 
-	AddUniq(tuple[0]-1);
+	data->pile[vertex][data->pile[vertex][0]] = edge;
+	data->visited[edge] = 1;
+
 	return true;
-}
-
-void AddUniq(int j) {
-	if (data->uniq[j] == false) {
-		data->uniq[j] = true;
-		data->uniqlen++;
-	}
 }
 
 /*
  * Check function. The logic here is that 
  */
 bool Check() {
-	int i, j, k;
-	bool retval = true;
-	int uniqc = data->uniqlen;
-	for (i = 0; i < data->uniqlen; i++) {
-		for (k = 0; k < data->uniqlen; k++) {
-			if (data->uniq[i] == false) {
-				for (j = 0; j < data->current; j++) {
-					data->pile[0][j] = -1;
-					data->pile[1][j] = -1;
-				}
-			} else {
-				for (j = 0; j < data->current; j++) {
-					if (data->pile[1][j] == i)
-						break;
-				}
-				if (j == data->current) {
-					data->uniq[i] = false;
-					uniqc--;
-				}
-			}
-		}
-	}
-
-	if (uniqc != 0) {
-		retval = false;
-	}
-	return retval;
+	return DFS();
 }
+
+bool DFS() {
+	int i, root;
+	root = 0;
+
+	for (i = 0; i < data->current; i++) {
+		if (data->visited[i] == 0)
+			root = i;
+		data->visited[i] = 0;
+	}
+	RDFS(root);
+	int temp = data->visited[0];
+	if (temp == 0) {
+		return false;
+	}
+	for (i = 1; i < data->current; i++) {
+		if (data->visited[i] == 0) {
+			return false;
+		}
+		if ((temp != data->visited[i]) || ((data->visited[i] == temp) && (temp == 1)))
+			temp = -1;
+	}
+	if (temp != -1) {
+		return false;
+	}
+	return true;
+}
+
+void RDFS(int vertex) {
+	data->visited[vertex]++;
+	int i;
+	for (i = 1; i < data->pile[vertex][0]; i++) {
+		int v = data->pile[vertex][i];
+		if (data->visited[v] < 2)
+			RDFS(v);
+	}
+}
+
+
+
+
