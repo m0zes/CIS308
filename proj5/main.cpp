@@ -1,3 +1,11 @@
+/******************************************************************************
+ * Name: Adam Tygart                                                          *
+ * Date: 3/27/11                                                              *
+ * Assignment: Project 5: Fractions                                           *
+ * ****************************************************************************
+ * Reads in two "Fractions" and a Maths operator, and performs that Maths     *
+ * operation on the fraction. Prints out the Maths operation and the result.  *
+ *****************************************************************************/
 #include <iostream>
 #include <string>
 #include "fraction.h"
@@ -5,6 +13,10 @@
 #include <string.h>
 using namespace std;
 
+/*
+ * main: Reads in two fractions and a maths operator. performs the maths and
+ * outputs the operation and the resultant fraction.
+ */
 int main(void) {
 	string temp, ns, ds;
 	int index, n, d, i;
