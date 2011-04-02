@@ -1,9 +1,22 @@
+/******************************************************************************
+ * Name: Adam Tygart                                                          * 
+ * Date: April 10.                                                            * 
+ * Assignment: Project 6: Sets                                                * 
+ * ************************************************************************** *
+ * Input sets and calculate the Unions and Intersections of the sets          *
+ *****************************************************************************/
 #include "set.cpp"
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
 using namespace std;
 
+/*
+ * Main. Ask for two sets of integers.
+ * Print the sorted sets
+ * Ask for an intersection or union
+ * Print the intersection or union
+ */
 int main(void) {
 	string buff;
 	cout << "Input Set 1 (  like num1,num2,...,numN): ";
