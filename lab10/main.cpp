@@ -13,5 +13,6 @@ int main(void) {
 		q->dequeue();
 	}
 
+	delete q;
 	return 0;
 }

@@ -28,6 +28,7 @@ T Queue<T>::dequeue() {
 	delete head;
 	head = t;
 	size--;
+	return tmp;
 }
 
 template <class T>
