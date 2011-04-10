@@ -12,8 +12,8 @@
 template <class T>
 class Set {
 	public:
-		Set<T>* Union(Set<T>*) const;
-		Set<T>* Intersection(Set<T>*) const;
+		Set<T>* Union(Set<T>*);
+		Set<T>* Intersection(Set<T>*);
 		Set(void);
 		~Set(void);
 		void Add(T);
@@ -53,7 +53,7 @@ Set<T>::~Set(void) {
  * containing the items in either.
  */
 template <class T>
-Set<T>* Set<T>::Union(Set<T> *other) const {
+Set<T>* Set<T>::Union(Set<T> *other) {
 	Set<T> *out = new Set<T>;
 	for (int i = 0; i < length; i++)
 		out->Add(list[i]);
@@ -68,7 +68,7 @@ Set<T>* Set<T>::Union(Set<T> *other) const {
  * that contains the items that are in both of them.
  */
 template <class T>
-Set<T>* Set<T>::Intersection(Set<T> *other) const {
+Set<T>* Set<T>::Intersection(Set<T> *other) {
 	Set<T> *out = new Set<T>;
 
 	int m = 0, o = 0;
@@ -117,10 +117,13 @@ void Set<T>::Add(T i) {
 		used = btmp;
 	}
 
+	bool added = false;
 	// add item.
 	for (int j = 0; j <= length; j++) {
-		if ((i == list[j]) && (used[j] == true))
+		if ((i == list[j]) && (used[j] == true)) {
+			added = true;
 			break;
+		}
 
 		if ((i < list[j]) && (used[j] == true)) {
 			for (int k = length; k > j; k--) {
@@ -130,13 +133,21 @@ void Set<T>::Add(T i) {
 			list[j] = i;
 			used[j] = true;
 			length++;
+			added = true;
 			break;
 		} else if (used[j] == false) {
 			list[j] = i;
 			length++;
 			used[j] = true;
+			added = true;
 			break;
 		}
+	}
+
+	if (added == false) {
+		added = true;
+		used[length] = true;
+		list[length++] = i;
 	}
 }
 
