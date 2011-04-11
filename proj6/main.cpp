@@ -6,6 +6,7 @@
  * Input sets and calculate the Unions and Intersections of the sets          *
  *****************************************************************************/
 #include "set.cpp"
+#include <string>
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
