@@ -12,8 +12,13 @@
 //};
 
 #include "Divide.h"
+#include "Subtract.h"
+#include "Multiply.h"
+#include "Exponent.h"
+#include <iostream>
+using namespace std;
 
-Divide::Divide(Formula* l, Formula* r) {
+Divide::Divide(Formula* t, Formula* b) {
 	top = t;
 	bottom = b;
 }
@@ -24,14 +29,22 @@ Divide::~Divide() {
 		delete bottom;
 }
 void Divide::print() {
-	cout << top->print() << "/" << bottom->print();
+	cout << "(";
+	top->print();
+	cout << "/";
+	bottom->print();
+	cout << ")";
 }
 void Divide::print(int i) {
-	cout << top->print(i) << "/" << bottom->print(i);
+	cout << "(";
+	top->print(i);
+	cout << "/";
+	bottom->print(i);
+	cout << ")";
 }
 Formula *Divide::derivative() {
-	return new Divide(new Subtract(new Multiply(top->derivative(), bottom), new Multiply(top, bottom->derivative)), new Exponent(bottom, new Constant(2)));
+	return new Divide(new Subtract(new Multiply(top->derivative(), bottom), new Multiply(top, bottom->derivative())), new Exponent(bottom, new Constant(2)));
 }
-int Divide::evaluate() {
-	return (top->evaluate() / bottom->evaluate());
+int Divide::evaluate(int i) {
+	return (top->evaluate(i) / bottom->evaluate(i));
 }

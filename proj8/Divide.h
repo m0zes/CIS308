@@ -1,4 +1,8 @@
+#pragma once
 #include "Formula.h"
+#include "Subtract.h"
+#include "Multiply.h"
+#include "Exponent.h"
 
 class Divide : public Formula {
 	public:
@@ -7,7 +11,7 @@ class Divide : public Formula {
 		void print();
 		void print(int);
 		Formula *derivative();
-		int evaluate();
+		int evaluate(int);
 	private:
 		Formula *top;
 		Formula *bottom;

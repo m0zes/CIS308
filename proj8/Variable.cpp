@@ -10,6 +10,9 @@
 //		int evaluate();
 //};
 #include "Variable.h"
+#include "Constant.h"
+#include <iostream>
+using namespace std;
 
 Variable::Variable() {
 	return;
@@ -27,10 +30,10 @@ void Variable::print(int i) {
 	cout << i;
 }
 
-Formula * derivative() {
+Formula * Variable::derivative() {
 	return new Constant(1);
 }
 
-int evaluate() {
-	throw "Cannot Evaluate a Variable!";
+int Variable::evaluate(int i) {
+	return i;
 }

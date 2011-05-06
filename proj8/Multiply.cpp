@@ -12,6 +12,9 @@
 //};
 
 #include "Multiply.h"
+#include "Add.h"
+#include <iostream>
+using namespace std;
 
 Multiply::Multiply(Formula* l, Formula* r) {
 	left = l;
@@ -24,14 +27,22 @@ Multiply::~Multiply() {
 		delete right;
 }
 void Multiply::print() {
-	cout << left->print() << "*" << right->print();
+	cout << "(";
+	left->print();
+	cout << "*";
+	right->print();
+	cout << ")";
 }
 void Multiply::print(int i) {
-	cout << left->print(i) << "*" << right->print(i);
+	cout << "(";
+	left->print(i);
+	cout << "*";
+	right->print(i);
+	cout << ")";
 }
 Formula *Multiply::derivative() {
 	return new Add(new Multiply(left->derivative(), right), new Multiply(left, right->derivative()));
 }
-int Multiply::evaluate() {
-	return (left->evaluate() * right->evaluate());
+int Multiply::evaluate(int i) {
+	return (left->evaluate(i) * right->evaluate(i));
 }

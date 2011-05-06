@@ -15,6 +15,8 @@
 //};
 
 #include "Constant.h"
+#include <iostream>
+using namespace std;
 
 Constant::Constant(int i) {
 	val = i;
@@ -36,6 +38,6 @@ Formula *Constant::derivative() {
 	return new Constant(0);
 }
 
-int Constant::evaluate() {
+int Constant::evaluate(int i) {
 	return val;
 }

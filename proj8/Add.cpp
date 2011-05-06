@@ -12,6 +12,8 @@
 //};
 
 #include "Add.h"
+#include <iostream>
+using namespace std;
 
 Add::Add(Formula* l, Formula* r) {
 	left = l;
@@ -24,14 +26,22 @@ Add::~Add() {
 		delete right;
 }
 void Add::print() {
-	cout << left->print() << "+" << right->print();
+	cout << "(";
+	left->print(); 
+	cout << "+";
+	right->print();
+	cout << ")";
 }
 void Add::print(int i) {
-	cout << left->print(i) << "+" << right->print(i);
+	cout << "(";
+	left->print(i); 
+	cout << "+";
+	right->print(i);
+	cout << ")";
 }
 Formula *Add::derivative() {
 	return new Add(left->derivative(), right->derivative());
 }
-int Add::evaluate() {
-	return (left->evaluate() + right->evaluate());
+int Add::evaluate(int i) {
+	return (left->evaluate(i) + right->evaluate(i));
 }

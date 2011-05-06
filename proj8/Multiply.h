@@ -1,4 +1,6 @@
+#pragma once
 #include "Formula.h"
+#include "Add.h"
 
 class Multiply : public Formula {
 	public:
@@ -7,7 +9,7 @@ class Multiply : public Formula {
 		void print();
 		void print(int);
 		Formula *derivative();
-		int evaluate();
+		int evaluate(int);
 	private:
 		Formula *left;
 		Formula *right;

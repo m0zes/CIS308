@@ -1,3 +1,4 @@
+#pragma once
 #include "Formula.h"
 
 class Constant : public Formula {
@@ -7,7 +8,7 @@ class Constant : public Formula {
 		void print();
 		void print(int);
 		Formula * derivative();
-		int evaluate();
+		int evaluate(int);
 
 	private:
 		int val;

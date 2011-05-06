@@ -14,9 +14,16 @@
 //};
 
 #include "Exponent.h"
+#include "Multiply.h"
+#include "Subtract.h"
+#include "Constant.h"
+#include <iostream>
+#include <cmath>
+using namespace std;
 
 Exponent::Exponent(Formula* l, Formula* r) {
-
+	left = l;
+	right = r;
 }
 Exponent::~Exponent() {
 	if (left != NULL) 
@@ -26,14 +33,22 @@ Exponent::~Exponent() {
 	
 }
 void Exponent::print() {
-	cout << left->print() << "^" << right->print();
+	cout << "(";
+	left->print();
+	cout << "^";
+	right->print();
+	cout << ")";
 }
 void Exponent::print(int i) {
-	cout << left->print(i) << "^" << right->print(i);
+	cout << "(";
+	left->print(i);
+	cout << "^";
+	right->print(i);
+	cout << ")";
 }
 Formula *Exponent::derivative() {
 	return new Multiply(right, new Exponent(left, new Subtract(right, new Constant(1))));
 }
-int Exponent::evaluate() {
-	return (left->evaluate() ** right->evaluate());
+int Exponent::evaluate(int i) {
+	return (int) pow(left->evaluate(i), right->evaluate(i));
 }

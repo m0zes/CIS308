@@ -12,6 +12,8 @@
 //};
 
 #include "Subtract.h"
+#include <iostream>
+using namespace std;
 
 Subtract::Subtract(Formula* l, Formula* r) {
 	left = l;
@@ -24,14 +26,22 @@ Subtract::~Subtract() {
 		delete right;
 }
 void Subtract::print() {
-	cout << left->print() << "+" << right->print();
+	cout << "(";
+	left->print();
+	cout << "-";
+	right->print();
+	cout << ")";
 }
 void Subtract::print(int i) {
-	cout << left->print(i) << "+" << right->print(i);
+	cout << "(";
+	left->print(i);
+	cout << "-";
+	right->print(i);
+	cout << ")";
 }
 Formula *Subtract::derivative() {
 	return new Subtract(left->derivative(), right->derivative());
 }
-int Subtract::evaluate() {
-	return (left->evaluate() - right->evaluate());
+int Subtract::evaluate(int i) {
+	return (left->evaluate(i) - right->evaluate(i));
 }
